@@ -3,7 +3,7 @@ from pdf2img import pdf_to_images
 from img2text import img_to_text
 import os
 
-def ocrFile(inputFile, outputFile, lang="ara"):
+def ocrFile(inputFile, outputFile, lang="eng"):
     images = pdf_to_images(inputFile)
     ocr_text = ""
     
