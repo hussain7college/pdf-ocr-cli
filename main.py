@@ -75,7 +75,7 @@ def chooseLanguage():
     elif lang == 2:
         return "eng"
     elif lang == 3:
-        return "-l ara+eng"
+        return "ara+eng"
     else:
         print("❌❌❌ Error: Invalid language ❌❌❌")
         return False
