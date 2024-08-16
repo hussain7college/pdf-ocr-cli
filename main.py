@@ -12,6 +12,8 @@ def ocrFile(inputFile, outputFile, lang="eng"):
     
     print("🔃🔃🔃 OCR PDF ... 🔃🔃🔃")
     for idx, img in enumerate(images):
+        # save image for debugging
+        img.save(f"debug/page_{idx}.png")
         print(f"🔃🔃🔃 OCRing page ({idx}) of ({len(images)})")
         ocr_result = img_to_text(img, lang)
         if ocr_result:
@@ -32,13 +34,12 @@ def ocrFile(inputFile, outputFile, lang="eng"):
 def ocrFiles(inputDirectory, outputDirectry, lang):
     for fileName in os.listdir(inputDirectory):
         if fileName.endswith(".pdf"):
-            inputFilePath = inputDirectory+"\\"+fileName
-            outputFilePath = outputDirectry + "\\" + fileName[:-4] + ".txt"
+            inputFilePath = os.path.join(inputDirectory, fileName)
+            outputFilePath = os.path.join(outputDirectry, fileName[:-4] + ".txt")
             if os.path.exists(os.path.dirname(outputFilePath)):
                 outputFilePath = renameUnique(outputFilePath)
             errorPages = ocrFile(inputFilePath, outputFilePath, lang)
-            moveRenameFile(inputFilePath, "done\\"+fileName) # move file to done folder
-            os.startfile(outputFilePath) # open file after complete
+            moveRenameFile(inputFilePath, os.path.join("done", fileName)) # move file to done folder
             if len(errorPages) > 0:
                 print(f"❌❌❌ Error processing pages ({errorPages}) in file ({fileName}) ❌❌❌")
 

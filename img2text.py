@@ -1,11 +1,14 @@
-import pytesseract  # Tesseract OCR library
+from pytesseract import image_to_string 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 def img_to_text(img, lang="eng"):
     try:
-        text = pytesseract.image_to_string(img, lang=lang)
+        text = image_to_string(img, lang=lang)
+        text = text.replace("‎", "")
+        text = text.replace("‏", "")
         return text
     except Exception as e:
         print("❌❌❌", e)
         return False
+    
+# print(image_to_string("debug/page_0.png")) # OCR image
